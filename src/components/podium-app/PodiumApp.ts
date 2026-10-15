@@ -36,6 +36,11 @@ customElements.define(
       const shadowRoot = this.attachShadow({ mode: 'open' })
       shadowRoot.adoptedStyleSheets = [sheet]
       shadowRoot.appendChild(template.content.cloneNode(true))
+
+      this.addEventListener('speech-change', (event) => {
+        const { text } = (event as CustomEvent<{ text: string }>).detail
+        console.log(text)
+      })
     }
 
     /**

@@ -36,6 +36,17 @@ customElements.define(
       const shadowRoot = this.attachShadow({ mode: 'open' })
       shadowRoot.adoptedStyleSheets = [sheet]
       shadowRoot.appendChild(template.content.cloneNode(true))
+
+      const textarea = shadowRoot.querySelector('#speech') as HTMLTextAreaElement
+      textarea.addEventListener('input', () => {
+        this.dispatchEvent(
+          new CustomEvent('speech-change', {
+            detail: { text: textarea.value },
+            bubbles: true,
+            composed: true,
+          })
+        )
+      })
     }
 
     /**
