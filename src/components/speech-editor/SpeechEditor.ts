@@ -43,7 +43,6 @@ customElements.define(
           new CustomEvent('speech-change', {
             detail: { text: textarea.value },
             bubbles: true,
-            composed: true,
           })
         )
       })
