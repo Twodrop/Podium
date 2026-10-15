@@ -1,1 +1,15 @@
 <textarea id="speech" placeholder="Write your speech here..."></textarea>
+
+<fieldset>
+  <legend>Speaking pace</legend>
+  <div id="pace-presets">
+    <button type="button" value="100">Slow</button>
+    <button type="button" value="130">Normal</button>
+    <button type="button" value="160">Fast</button>
+  </div>
+  <label>
+    Words per minute
+    <input id="pace" type="number" min="50" max="300" />
+  </label>
+  <p id="pace-error" role="alert"></p>
+</fieldset>

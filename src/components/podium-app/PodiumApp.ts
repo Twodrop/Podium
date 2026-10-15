@@ -7,6 +7,7 @@
 
 import css from './podium-app.css?inline'
 import html from './podium-app.html?raw'
+import type { SpeakingPace } from '../../domain/SpeakingPace'
 
 const sheet = new CSSStyleSheet()
 sheet.replaceSync(css)
@@ -38,8 +39,8 @@ customElements.define(
       shadowRoot.appendChild(template.content.cloneNode(true))
 
       shadowRoot.addEventListener('speech-change', (event) => {
-        const { text } = (event as CustomEvent<{ text: string }>).detail
-        console.log(text)
+        const { text, pace } = (event as CustomEvent<{ text: string; pace: SpeakingPace }>).detail
+        console.log(text, pace.wordsPerMinute)
       })
     }
 
