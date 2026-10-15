@@ -1,3 +1,11 @@
-import './style.css'
+/**
+ * The main script file of the application. Registers the custom elements.
+ *
+ * @author Robin Helander <rehswe@gmail.com>
+ * @version 1.0.0
+ */
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = '<h1>Podium</h1>'
+import './components/report-panel/ReportPanel.ts'
+import './components/speech-editor/SpeechEditor.ts'
+import './components/teleprompter-view/TeleprompterView.ts'
+import './components/podium-app/PodiumApp.ts'
