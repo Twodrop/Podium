@@ -36,7 +36,7 @@ export class PodiumApp extends HTMLElement {
 
     shadowRoot.addEventListener('speech-change', (event) => {
       const { text, pace } = (event as CustomEvent<{ text: string; pace: SpeakingPace }>).detail
-      reportPanel.report = this.#analyzer.analyze(text, pace)
+      reportPanel.showReport(this.#analyzer.analyze(text, pace))
     })
   }
 

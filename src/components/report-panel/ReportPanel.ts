@@ -40,7 +40,7 @@ export class ReportPanel extends HTMLElement {
    *
    * @param report - The report to show.
    */
-  set report(report: SpeechReport) {
+  showReport(report: SpeechReport) {
     this.#wordCount.textContent = String(report.wordCount)
     this.#speakingTime.textContent = report.formattedSpeakingTime
   }
