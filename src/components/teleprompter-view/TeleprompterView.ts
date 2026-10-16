@@ -14,33 +14,28 @@ sheet.replaceSync(css)
 const template = document.createElement('template')
 template.innerHTML = html
 
-customElements.define(
-  'teleprompter-view',
-  /**
-   * Represents a teleprompter view.
-   */
-
+/**
+ * Represents a teleprompter view.
+ */
+export class TeleprompterView extends HTMLElement {
   /**
    * ...
    */
-  class extends HTMLElement {
-    /**
-     * ...
-     */
 
-    /**
-     * Creates an instance of the current type.
-     */
-    constructor() {
-      super()
-      const shadowRoot = this.attachShadow({ mode: 'open' })
-      shadowRoot.adoptedStyleSheets = [sheet]
-      shadowRoot.appendChild(template.content.cloneNode(true))
-    }
-
-    /**
-     * Called after the element is inserted into the DOM.
-     */
-    connectedCallback() {}
+  /**
+   * Creates an instance of the current type.
+   */
+  constructor() {
+    super()
+    const shadowRoot = this.attachShadow({ mode: 'open' })
+    shadowRoot.adoptedStyleSheets = [sheet]
+    shadowRoot.appendChild(template.content.cloneNode(true))
   }
-)
+
+  /**
+   * Called after the element is inserted into the DOM.
+   */
+  connectedCallback() {}
+}
+
+customElements.define('teleprompter-view', TeleprompterView)

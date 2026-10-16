@@ -7,6 +7,7 @@
 
 import css from './report-panel.css?inline'
 import html from './report-panel.html?raw'
+import type { SpeechReport } from '../../domain/SpeechReport'
 
 const sheet = new CSSStyleSheet()
 sheet.replaceSync(css)
@@ -14,33 +15,40 @@ sheet.replaceSync(css)
 const template = document.createElement('template')
 template.innerHTML = html
 
-customElements.define(
-  'report-panel',
-  /**
-   * Represents a report panel.
-   */
+/**
+ * Represents a report panel.
+ */
+export class ReportPanel extends HTMLElement {
+  #wordCount: HTMLElement
+  #speakingTime: HTMLElement
 
   /**
-   * ...
+   * Creates an instance of the current type.
    */
-  class extends HTMLElement {
-    /**
-     * ...
-     */
+  constructor() {
+    super()
+    const shadowRoot = this.attachShadow({ mode: 'open' })
+    shadowRoot.adoptedStyleSheets = [sheet]
+    shadowRoot.appendChild(template.content.cloneNode(true))
 
-    /**
-     * Creates an instance of the current type.
-     */
-    constructor() {
-      super()
-      const shadowRoot = this.attachShadow({ mode: 'open' })
-      shadowRoot.adoptedStyleSheets = [sheet]
-      shadowRoot.appendChild(template.content.cloneNode(true))
-    }
-
-    /**
-     * Called after the element is inserted into the DOM.
-     */
-    connectedCallback() {}
+    this.#wordCount = shadowRoot.querySelector('#word-count') as HTMLElement
+    this.#speakingTime = shadowRoot.querySelector('#speaking-time') as HTMLElement
   }
-)
+
+  /**
+   * Shows the given report.
+   *
+   * @param report - The report to show.
+   */
+  set report(report: SpeechReport) {
+    this.#wordCount.textContent = String(report.wordCount)
+    this.#speakingTime.textContent = report.formattedSpeakingTime
+  }
+
+  /**
+   * Called after the element is inserted into the DOM.
+   */
+  connectedCallback() {}
+}
+
+customElements.define('report-panel', ReportPanel)
