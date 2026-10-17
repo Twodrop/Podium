@@ -8,8 +8,10 @@
 import css from './podium-app.css?inline'
 import html from './podium-app.html?raw'
 import { SpeechAnalyzer } from '../../domain/SpeechAnalyzer'
+import { DraftStore } from '../../domain/DraftStore'
 import type { SpeakingPace } from '../../domain/SpeakingPace'
 import type { ReportPanel } from '../report-panel/ReportPanel'
+import type { SpeechEditor } from '../speech-editor/SpeechEditor'
 
 const sheet = new CSSStyleSheet()
 sheet.replaceSync(css)
@@ -17,12 +19,15 @@ sheet.replaceSync(css)
 const template = document.createElement('template')
 template.innerHTML = html
 
+const STORAGE = localStorage
+
 /**
  * Represents the podium app.
  */
 export class PodiumApp extends HTMLElement {
   #analyzer = new SpeechAnalyzer()
-
+  #speechEditor: SpeechEditor
+  #draftStore = new DraftStore(STORAGE)
   /**
    * Creates an instance of the current type.
    */
@@ -32,18 +37,26 @@ export class PodiumApp extends HTMLElement {
     shadowRoot.adoptedStyleSheets = [sheet]
     shadowRoot.appendChild(template.content.cloneNode(true))
 
+    this.#speechEditor = shadowRoot.querySelector('speech-editor') as SpeechEditor
+
     const reportPanel = shadowRoot.querySelector('report-panel') as ReportPanel
 
     shadowRoot.addEventListener('speech-change', (event) => {
       const { text, pace } = (event as CustomEvent<{ text: string; pace: SpeakingPace }>).detail
       reportPanel.showReport(this.#analyzer.analyze(text, pace))
+
+      if (!this.#draftStore.save(text)) {
+        console.error('Could not save speech to storage')
+      }
     })
   }
 
   /**
    * Called after the element is inserted into the DOM.
    */
-  connectedCallback() {}
+  connectedCallback() {
+    this.#speechEditor.speech = this.#draftStore.load()
+  }
 }
 
 customElements.define('podium-app', PodiumApp)

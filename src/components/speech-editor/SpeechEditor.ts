@@ -73,6 +73,14 @@ export class SpeechEditor extends HTMLElement {
   }
 
   /**
+   *
+   */
+  set speech(text: string) {
+    this.#textarea.value = text
+    this.#dispatchSpeechChange()
+  }
+
+  /**
    * Tells listeners about the current text and pace.
    */
   #dispatchSpeechChange() {
