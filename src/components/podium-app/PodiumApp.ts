@@ -46,13 +46,16 @@ export class PodiumApp extends HTMLElement {
 
     shadowRoot.addEventListener('speech-change', (event) => {
       const { text, pace } = (event as CustomEvent<{ text: string; pace: SpeakingPace }>).detail
-      reportPanel.showReport(this.#analyzer.analyze(text, pace))
+
+      const report = this.#analyzer.analyze(text, pace)
+      reportPanel.showReport(report)
 
       if (!this.#draftStore.save(text)) {
         console.error('Could not save speech to storage')
       }
 
       teleprompterView.text = text
+      teleprompterView.speakingSeconds = report.speakingSeconds
     })
   }
 
