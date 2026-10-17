@@ -73,7 +73,7 @@ export class SpeechEditor extends HTMLElement {
   }
 
   /**
-   *
+   * Used to update the text in the editor from outside.
    */
   set speech(text: string) {
     this.#textarea.value = text
