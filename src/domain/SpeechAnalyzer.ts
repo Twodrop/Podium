@@ -8,7 +8,7 @@ import { SpeechReport } from './SpeechReport'
 export class SpeechAnalyzer {
   analyze(text: string, pace: SpeakingPace): SpeechReport {
     const wordCount = new TextCounter(text).countWords()
-    const speakingSeconds = new TextStatistics(text).readingTime(pace.wordsPerMinute)
+    const speakingSeconds = new TextStatistics(text).readingTimeInSeconds(pace.wordsPerMinute)
 
     return new SpeechReport(wordCount, speakingSeconds)
   }
