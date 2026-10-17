@@ -5,7 +5,6 @@ export type TeleprompterEvent = 'start' | 'countdownEnded' | 'pause' | 'resume' 
 
 export class TeleprompterState {
   readonly #machine = new StateMachine('idle')
-  #wordCount = 0
 
   constructor() {
     this.#machine
@@ -14,7 +13,7 @@ export class TeleprompterState {
       .defineState('playing')
       .defineState('paused')
       .defineState('finished')
-      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start', guard: () => this.#wordCount > 0 })
+      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start' })
       .defineTransition({ from: 'countingDown', to: 'playing', on: 'countdownEnded' })
       .defineTransition({ from: 'playing', to: 'paused', on: 'pause' })
       .defineTransition({ from: 'paused', to: 'playing', on: 'resume' })
@@ -26,10 +25,6 @@ export class TeleprompterState {
     for (const from of ['idle', 'countingDown', 'playing', 'paused', 'finished']) {
       this.#machine.defineTransition({ from, to: 'idle', on: 'exit' })
     }
-  }
-
-  set wordCount(wordCount: number) {
-    this.#wordCount = wordCount
   }
 
   canSend(event: TeleprompterEvent) {
