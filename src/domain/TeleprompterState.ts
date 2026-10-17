@@ -3,9 +3,15 @@
 import { StateMachine } from 'flowstate-mini-js'
 export type TeleprompterEvent = 'start' | 'countdownEnded' | 'pause' | 'resume' | 'speechEnded' | 'restart' | 'exit'
 
+/**
+ *
+ */
 export class TeleprompterState {
   readonly #machine = new StateMachine('idle')
 
+  /**
+   *
+   */
   constructor() {
     this.#machine
       .defineState('idle')
@@ -27,10 +33,20 @@ export class TeleprompterState {
     }
   }
 
+  /**
+   * TODO:
+   *
+   * @param event
+   */
   canSend(event: TeleprompterEvent) {
     return this.#machine.canSend(event)
   }
 
+  /**
+   * TODO:
+   *
+   * @param event
+   */
   send(event: TeleprompterEvent) {
     this.#machine.send(event)
   }

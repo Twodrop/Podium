@@ -56,28 +56,45 @@ export class TeleprompterView extends HTMLElement {
 
   /**
    * Used to update the text in the editor from outside.
+   * Also updates button state.
    */
   set text(text: string) {
     this.#textArea.textContent = text
     this.#refreshButtons()
   }
 
+  /**
+   * Used to update speakingSeconds.
+   */
   set speakingSeconds(speakingSeconds: number) {
     this.#speakingSeconds = speakingSeconds
   }
 
+  /**
+   * Opens the teleprompter section,
+   * and updates button state.
+   */
   #open(): void {
     this.#teleprompter.hidden = false
     this.#openTeleprompterButton.hidden = true
     this.#refreshButtons()
   }
 
+  /**
+   * Closes the teleprompter section,
+   * and updates button state.
+   */
   #close(): void {
     this.#teleprompter.hidden = true
     this.#openTeleprompterButton.hidden = false
     this.#refreshButtons()
   }
 
+  /**
+   * TODO:
+   *
+   * @param event
+   */
   #show(event: TeleprompterEvent): void {
     switch (event) {
       case 'start':
@@ -97,6 +114,11 @@ export class TeleprompterView extends HTMLElement {
     }
   }
 
+  /**
+   * Used to send event to the state machine.
+   *
+   * @param event
+   */
   #send(event: TeleprompterEvent): void {
     if (!this.#teleprompterState.canSend(event)) {
       return
@@ -106,6 +128,9 @@ export class TeleprompterView extends HTMLElement {
     this.#refreshButtons()
   }
 
+  /**
+   * Disables buttons based on the state.
+   */
   #refreshButtons(): void {
     for (const button of this.#menuButtons) {
       button.disabled = !this.#teleprompterState.canSend(button.dataset.event as TeleprompterEvent)
