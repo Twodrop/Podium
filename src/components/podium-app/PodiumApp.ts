@@ -56,6 +56,8 @@ export class PodiumApp extends HTMLElement {
 
       teleprompterView.text = text
       teleprompterView.speakingSeconds = report.speakingSeconds
+      teleprompterView.wordCount = report.wordCount
+      
     })
   }
 

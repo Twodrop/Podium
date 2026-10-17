@@ -4,13 +4,22 @@ import { StateMachine } from 'flowstate-mini-js'
 export type TeleprompterEvent = 'start' | 'countdownEnded' | 'pause' | 'resume' | 'speechEnded' | 'restart' | 'exit'
 
 /**
- *
+ * ...
  */
 export class TeleprompterState {
-  readonly #machine = new StateMachine('idle')
 
   /**
+   * Checks whether there is a script to read.
    *
+   * @returns True if the script has at least one word.
+   */
+  readonly #hasScript = () => this.#wordCount > 0
+
+  readonly #machine = new StateMachine('idle')
+
+  #wordCount = 0
+  /**
+   * ...
    */
   constructor() {
     this.#machine
@@ -19,7 +28,7 @@ export class TeleprompterState {
       .defineState('playing')
       .defineState('paused')
       .defineState('finished')
-      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start' })
+      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start', guard: this.#hasScript() })
       .defineTransition({ from: 'countingDown', to: 'playing', on: 'countdownEnded' })
       .defineTransition({ from: 'playing', to: 'paused', on: 'pause' })
       .defineTransition({ from: 'paused', to: 'playing', on: 'resume' })
@@ -33,6 +42,12 @@ export class TeleprompterState {
     }
   }
 
+  /**
+   * TODO:
+   */
+  set wordCount(wordCount: number) {
+    this.#wordCount = wordCount
+  }
   /**
    * TODO:
    *

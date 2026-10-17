@@ -52,7 +52,7 @@ export class TeleprompterView extends HTMLElement {
   /**
    * Called after the element is inserted into the DOM.
    */
-  connectedCallback() {}
+  connectedCallback() { }
 
   /**
    * Used to update the text in the editor from outside.
@@ -61,6 +61,13 @@ export class TeleprompterView extends HTMLElement {
   set text(text: string) {
     this.#textArea.textContent = text
     this.#refreshButtons()
+  }
+
+  /**
+   * Used to set the word count in the teleprompterState
+   */
+  set wordCount(wordCount: number) {
+    this.#teleprompterState.wordCount = wordCount
   }
 
   /**
