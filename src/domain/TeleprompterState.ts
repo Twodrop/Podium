@@ -28,7 +28,7 @@ export class TeleprompterState {
       .defineState('playing')
       .defineState('paused')
       .defineState('finished')
-      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start', guard: this.#hasScript() })
+      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start', guard: this.#hasScript })
       .defineTransition({ from: 'countingDown', to: 'playing', on: 'countdownEnded' })
       .defineTransition({ from: 'playing', to: 'paused', on: 'pause' })
       .defineTransition({ from: 'paused', to: 'playing', on: 'resume' })
