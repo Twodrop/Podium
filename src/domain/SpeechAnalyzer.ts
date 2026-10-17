@@ -15,9 +15,16 @@ export class SpeechAnalyzer {
    * @returns A report of the analysis.
    */
   analyze(text: string, pace: SpeakingPace): SpeechReport {
-    const wordCount = new TextCounter(text).countWords()
-    const speakingSeconds = new TextStatistics(text).readingTimeInSeconds(pace.wordsPerMinute)
+    const counter = new TextCounter(text)
+    const statistics = new TextStatistics(text)
 
-    return new SpeechReport(wordCount, speakingSeconds)
+    return new SpeechReport({
+      wordCount: counter.countWords(),
+      characterCount: counter.countCharacters(),
+      sentenceCount: counter.countSentences(),
+      speakingSeconds: statistics.readingTimeInSeconds(pace.wordsPerMinute),
+      averageWordLength: statistics.avgWordLength(),
+      averageSentenceLength: statistics.avgSentenceLength(),
+    })
   }
 }

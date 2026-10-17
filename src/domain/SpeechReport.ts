@@ -1,19 +1,38 @@
 /**
- *
+ * The values needed to create a SpeechReport.
+ */
+export type SpeechStatistics = {
+  wordCount: number
+  characterCount: number
+  sentenceCount: number
+  speakingSeconds: number
+  averageWordLength: number
+  averageSentenceLength: number
+}
+
+/**
+ * The result of analyzing a speech.
  */
 export class SpeechReport {
   readonly wordCount: number
+  readonly characterCount: number
+  readonly sentenceCount: number
   readonly speakingSeconds: number
+  readonly averageWordLength: number
+  readonly averageSentenceLength: number
 
   /**
    * Creates a new SpeechReport.
    *
-   * @param wordCount word count
-   * @param speakingSeconds speaking seconds
+   * @param stats The statistics of the analyzed speech.
    */
-  constructor(wordCount: number, speakingSeconds: number) {
-    this.wordCount = wordCount
-    this.speakingSeconds = speakingSeconds
+  constructor(stats: SpeechStatistics) {
+    this.wordCount = stats.wordCount
+    this.characterCount = stats.characterCount
+    this.sentenceCount = stats.sentenceCount
+    this.speakingSeconds = stats.speakingSeconds
+    this.averageWordLength = stats.averageWordLength
+    this.averageSentenceLength = stats.averageSentenceLength
   }
 
   /**
