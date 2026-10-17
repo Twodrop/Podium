@@ -1,1 +1,23 @@
-<h1>teleprompter-view component</h1>
+<button command="show-modal" commandfor="teleprompter">Open dialog</button>
+
+<dialog id="teleprompter">
+  <div id="viewport">
+    <div id="speech">
+    </div>
+    <div class="reading-line"></div>
+  </div>
+
+  <p class="countdown" hidden></p>
+
+  <p class="times">
+    Elapsed <span class="elapsed">0:00</span> · Remaining <span class="remaining">0:00</span>
+  </p>
+
+  <div class="controls">
+    <button type="button" data-event="start">Start</button>
+    <button type="button" data-event="pause">Pause</button>
+    <button type="button" data-event="resume">Resume</button>
+    <button type="button" data-event="restart">Restart</button>
+    <button type="button" data-event="exit">Exit</button>
+  </div>
+</dialog>

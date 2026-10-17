@@ -21,7 +21,7 @@ export class TeleprompterView extends HTMLElement {
   /**
    * ...
    */
-
+  #textArea: HTMLElement
   /**
    * Creates an instance of the current type.
    */
@@ -30,12 +30,22 @@ export class TeleprompterView extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: 'open' })
     shadowRoot.adoptedStyleSheets = [sheet]
     shadowRoot.appendChild(template.content.cloneNode(true))
+
+    this.#textArea = shadowRoot.querySelector('#speech') as HTMLElement 
   }
 
   /**
    * Called after the element is inserted into the DOM.
    */
   connectedCallback() {}
+
+
+    /**
+   * Used to update the text in the editor from outside.
+   */
+  set text(text: string) {
+    this.#textArea.textContent = text
+  }
 }
 
 customElements.define('teleprompter-view', TeleprompterView)
