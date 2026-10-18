@@ -2,7 +2,7 @@ import { TextCounter, TextStatistics } from 'glyphalyze'
 import type { SpeakingPace } from './SpeakingPace'
 import { SpeechReport } from './SpeechReport'
 const FREQUENT_WORDS_COUNT = 10
-const FREQUENT_WORDS_EXCLUDE = ['a, i']
+const FREQUENT_WORDS_EXCLUDE = ['a', 'i']
 /**
  * Turns the text of a speech into a SpeechReport.
  */

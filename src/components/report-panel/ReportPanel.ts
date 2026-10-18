@@ -25,6 +25,7 @@ export class ReportPanel extends HTMLElement {
   #speakingTime: HTMLElement
   #averageWordLength: HTMLElement
   #averageSentenceLength: HTMLElement
+  #mostFrequentWords: HTMLElement
 
   /**
    * Creates an instance of the current type.
@@ -41,6 +42,7 @@ export class ReportPanel extends HTMLElement {
     this.#speakingTime = shadowRoot.querySelector('#speaking-time') as HTMLElement
     this.#averageWordLength = shadowRoot.querySelector('#average-word-length') as HTMLElement
     this.#averageSentenceLength = shadowRoot.querySelector('#average-sentence-length') as HTMLElement
+    this.#mostFrequentWords = shadowRoot.querySelector('#most-frequent-words') as HTMLElement
   }
 
   /**
@@ -55,6 +57,24 @@ export class ReportPanel extends HTMLElement {
     this.#speakingTime.textContent = report.formattedSpeakingTime
     this.#averageWordLength.textContent = String(report.averageWordLength)
     this.#averageSentenceLength.textContent = String(report.averageSentenceLength)
+    this.#showMostFrequentWords(report.mostFrequentWords)
+  }
+
+  /**
+   * Renders the most frequent words as list items.
+   *
+   * @param words - The words and their counts, most frequent first.
+   */
+  #showMostFrequentWords(words: { word: string; count: number }[]) {
+    const items = words.map(({ word, count }) => {
+      const item = document.createElement('li')
+      const countElement = document.createElement('span')
+      countElement.className = 'count'
+      countElement.textContent = String(count)
+      item.append(word, countElement)
+      return item
+    })
+    this.#mostFrequentWords.replaceChildren(...items)
   }
 
   /**
