@@ -7,7 +7,6 @@ export type TeleprompterEvent = 'start' | 'countdownEnded' | 'pause' | 'resume' 
  * ...
  */
 export class TeleprompterState {
-
   /**
    * Checks whether there is a script to read.
    *
@@ -51,7 +50,8 @@ export class TeleprompterState {
   /**
    * TODO:
    *
-   * @param event
+   * @param event TODO:
+   * @returns TODO:
    */
   canSend(event: TeleprompterEvent) {
     return this.#machine.canSend(event)
@@ -60,7 +60,7 @@ export class TeleprompterState {
   /**
    * TODO:
    *
-   * @param event
+   * @param event TODO:
    */
   send(event: TeleprompterEvent) {
     this.#machine.send(event)
