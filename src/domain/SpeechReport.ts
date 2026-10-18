@@ -8,6 +8,7 @@ export type SpeechStatistics = {
   speakingSeconds: number
   averageWordLength: number
   averageSentenceLength: number
+  mostFrequentWords: { word: string; count: number }[]
 }
 
 /**
@@ -20,6 +21,7 @@ export class SpeechReport {
   readonly speakingSeconds: number
   readonly averageWordLength: number
   readonly averageSentenceLength: number
+  readonly mostFrequentWords: { word: string; count: number }[]
 
   /**
    * Creates a new SpeechReport.
@@ -33,6 +35,7 @@ export class SpeechReport {
     this.speakingSeconds = stats.speakingSeconds
     this.averageWordLength = stats.averageWordLength
     this.averageSentenceLength = stats.averageSentenceLength
+    this.mostFrequentWords = stats.mostFrequentWords
   }
 
   /**

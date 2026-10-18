@@ -1,7 +1,8 @@
 import { TextCounter, TextStatistics } from 'glyphalyze'
 import type { SpeakingPace } from './SpeakingPace'
 import { SpeechReport } from './SpeechReport'
-
+const FREQUENT_WORDS_COUNT = 10
+const FREQUENT_WORDS_EXCLUDE = ['a, i']
 /**
  * Turns the text of a speech into a SpeechReport.
  */
@@ -25,6 +26,7 @@ export class SpeechAnalyzer {
       speakingSeconds: statistics.readingTimeInSeconds(pace.wordsPerMinute),
       averageWordLength: statistics.avgWordLength(),
       averageSentenceLength: statistics.avgSentenceLength(),
+      mostFrequentWords: counter.mostFrequentWords(FREQUENT_WORDS_COUNT, FREQUENT_WORDS_EXCLUDE),
     })
   }
 }
