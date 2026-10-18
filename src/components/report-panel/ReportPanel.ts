@@ -15,6 +15,8 @@ sheet.replaceSync(css)
 const template = document.createElement('template')
 template.innerHTML = html
 
+const ROUNDED_TO = 2
+
 /**
  * Represents a report panel.
  */
@@ -55,8 +57,8 @@ export class ReportPanel extends HTMLElement {
     this.#wordCount.textContent = String(report.wordCount)
     this.#sentenceCount.textContent = String(report.sentenceCount)
     this.#speakingTime.textContent = report.formattedSpeakingTime
-    this.#averageWordLength.textContent = String(report.averageWordLength)
-    this.#averageSentenceLength.textContent = String(report.averageSentenceLength)
+    this.#averageWordLength.textContent = report.averageWordLength.toFixed(ROUNDED_TO)
+    this.#averageSentenceLength.textContent = report.averageSentenceLength.toFixed(ROUNDED_TO)
     this.#showMostFrequentWords(report.mostFrequentWords)
   }
 

@@ -3,6 +3,8 @@ section {
   flex-direction: column;
   border: 1px solid black;
   max-width: fit-content;
+  padding: 20px;
+  border-radius: 25px;
 }
 
 dl {
@@ -25,6 +27,9 @@ dd {
 
 .frequent-words {
   margin-top: 1.5rem;
+    display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h3 {
@@ -41,13 +46,14 @@ ol {
   margin: 0;
   padding: 0;
   list-style: none;
+  width: 0;
+  min-width: 100%;
 }
 
 li {
   padding: 0.25rem 0.75rem;
   border: 1px solid currentColor;
   border-radius: 1rem;
-  max-width: fit-content;
 }
 
 .count {
@@ -55,3 +61,4 @@ li {
   opacity: 0.7;
   font-variant-numeric: tabular-nums;
 }
+
