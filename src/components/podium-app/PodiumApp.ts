@@ -53,9 +53,7 @@ export class PodiumApp extends HTMLElement {
         console.error('Could not save speech to storage')
       }
 
-      teleprompterView.text = text
-      teleprompterView.speakingSeconds = report.speakingSeconds
-      teleprompterView.wordCount = report.wordCount
+      teleprompterView.load(text, report)
     })
   }
 

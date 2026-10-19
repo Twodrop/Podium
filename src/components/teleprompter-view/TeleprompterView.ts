@@ -7,6 +7,7 @@
 import css from './teleprompter-view.css?inline'
 import html from './teleprompter-view.html?raw'
 import { TeleprompterState, type TeleprompterEvent } from '../../domain/TeleprompterState'
+import type { SpeechReport } from '../../domain/SpeechReport'
 
 const sheet = new CSSStyleSheet()
 sheet.replaceSync(css)
@@ -54,28 +55,19 @@ export class TeleprompterView extends HTMLElement {
     this.#openTeleprompterButton.addEventListener('click', () => this.#open())
   }
 
-  /**
-   * Used to update the text in the editor from outside.
-   * Also updates button state.
-   */
-  set text(text: string) {
-    this.#textArea.textContent = text
-    this.#refreshButtons()
-  }
-
-  /**
-   * Used to set the word count in the teleprompterState
-   */
-  set wordCount(wordCount: number) {
-    this.#teleprompterState.wordCount = wordCount
-  }
-
-  /**
-   * Used to update speakingSeconds.
-   */
-  set speakingSeconds(speakingSeconds: number) {
-    this.#speakingSeconds = speakingSeconds
-  }
+     /**
+    * Loads the speech to play. Updates the text, timing and word count,
+    * then re-checks which controls are enabled.
+    *
+    * @param speech - The speech text.
+    * @param report - The analysis of that speech.
+    */
+   load(speech: string, report: SpeechReport): void {
+     this.#textArea.textContent = speech
+     this.#speakingSeconds = report.speakingSeconds
+     this.#teleprompterState.wordCount = report.wordCount
+     this.#refreshButtons()
+   }
 
   /**
    * Opens the teleprompter section,
