@@ -55,19 +55,19 @@ export class TeleprompterView extends HTMLElement {
     this.#openTeleprompterButton.addEventListener('click', () => this.#open())
   }
 
-     /**
-    * Loads the speech to play. Updates the text, timing and word count,
-    * then re-checks which controls are enabled.
-    *
-    * @param speech - The speech text.
-    * @param report - The analysis of that speech.
-    */
-   load(speech: string, report: SpeechReport): void {
-     this.#textArea.textContent = speech
-     this.#speakingSeconds = report.speakingSeconds
-     this.#teleprompterState.wordCount = report.wordCount
-     this.#refreshButtons()
-   }
+  /**
+   * Loads the speech to play. Updates the text, timing and word count,
+   * then re-checks which controls are enabled.
+   *
+   * @param speech - The speech text.
+   * @param report - The analysis of that speech.
+   */
+  load(speech: string, report: SpeechReport): void {
+    this.#textArea.textContent = speech
+    this.#speakingSeconds = report.speakingSeconds
+    this.#teleprompterState.wordCount = report.wordCount
+    this.#refreshButtons()
+  }
 
   /**
    * Opens the teleprompter section,

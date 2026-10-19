@@ -21,7 +21,7 @@ export class SpeechReport {
   readonly speakingSeconds: number
   readonly averageWordLength: number
   readonly averageSentenceLength: number
-  readonly mostFrequentWords: readonly{ word: string; count: number }[]
+  readonly mostFrequentWords: readonly { word: string; count: number }[]
 
   /**
    * Creates a new SpeechReport.

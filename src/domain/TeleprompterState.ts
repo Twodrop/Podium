@@ -49,7 +49,7 @@ export class TeleprompterState {
   set wordCount(wordCount: number) {
     this.#wordCount = wordCount
   }
-  
+
   /**
    * TODO:
    *

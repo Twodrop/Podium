@@ -66,7 +66,7 @@ export class ReportPanel extends HTMLElement {
    *
    * @param words - The words and their counts, most frequent first.
    */
-  #showMostFrequentWords(words: readonly{ word: string; count: number }[]) {
+  #showMostFrequentWords(words: readonly { word: string; count: number }[]) {
     const items = words.map(({ word, count }) => {
       const item = document.createElement('li')
       const countElement = document.createElement('span')
