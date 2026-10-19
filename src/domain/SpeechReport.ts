@@ -21,21 +21,21 @@ export class SpeechReport {
   readonly speakingSeconds: number
   readonly averageWordLength: number
   readonly averageSentenceLength: number
-  readonly mostFrequentWords: { word: string; count: number }[]
+  readonly mostFrequentWords: readonly{ word: string; count: number }[]
 
   /**
    * Creates a new SpeechReport.
    *
-   * @param stats The statistics of the analyzed speech.
+   * @param statistics The statistics of the analyzed speech.
    */
-  constructor(stats: SpeechStatistics) {
-    this.wordCount = stats.wordCount
-    this.characterCount = stats.characterCount
-    this.sentenceCount = stats.sentenceCount
-    this.speakingSeconds = stats.speakingSeconds
-    this.averageWordLength = stats.averageWordLength
-    this.averageSentenceLength = stats.averageSentenceLength
-    this.mostFrequentWords = stats.mostFrequentWords
+  constructor(statistics: SpeechStatistics) {
+    this.wordCount = statistics.wordCount
+    this.characterCount = statistics.characterCount
+    this.sentenceCount = statistics.sentenceCount
+    this.speakingSeconds = statistics.speakingSeconds
+    this.averageWordLength = statistics.averageWordLength
+    this.averageSentenceLength = statistics.averageSentenceLength
+    this.mostFrequentWords = statistics.mostFrequentWords
   }
 
   /**

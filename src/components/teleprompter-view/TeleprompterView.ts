@@ -2,7 +2,6 @@
  * The teleprompter-view web component module.
  *
  * @author Robin Helander <rehswe@gmail.com>
- * @version 1.0.0
  */
 
 import css from './teleprompter-view.css?inline'
@@ -21,19 +20,17 @@ const COUNTDOWN_SECONDS = 3
  * Represents a teleprompter view.
  */
 export class TeleprompterView extends HTMLElement {
-  /**
-   * ...
-   */
   #textArea: HTMLElement
   #viewport: HTMLElement
-  #countdown: HTMLElement
+  #countdownMessage: HTMLElement
   #teleprompter: HTMLElement
   #teleprompterState = new TeleprompterState()
-  #menuButtons: HTMLButtonElement[]
+  #controlButtons: HTMLButtonElement[]
   #openTeleprompterButton: HTMLButtonElement
   #speakingSeconds = 0
   #animation: Animation | null = null
   #countdownTimer: number | undefined
+
   /**
    * Creates an instance of the current type.
    */
@@ -45,22 +42,17 @@ export class TeleprompterView extends HTMLElement {
 
     this.#textArea = shadowRoot.querySelector('#speech') as HTMLElement
     this.#viewport = shadowRoot.querySelector('#viewport') as HTMLElement
-    this.#countdown = shadowRoot.querySelector('.countdown') as HTMLElement
+    this.#countdownMessage = shadowRoot.querySelector('.countdown') as HTMLElement
     this.#teleprompter = shadowRoot.querySelector('#teleprompter') as HTMLElement
-    this.#menuButtons = [...shadowRoot.querySelectorAll('button[data-event]')] as HTMLButtonElement[]
+    this.#controlButtons = [...shadowRoot.querySelectorAll('button[data-event]')] as HTMLButtonElement[]
     this.#openTeleprompterButton = shadowRoot.querySelector('#open') as HTMLButtonElement
 
-    for (const button of this.#menuButtons) {
+    for (const button of this.#controlButtons) {
       button.addEventListener('click', () => this.#send(button.dataset.event as TeleprompterEvent))
     }
 
     this.#openTeleprompterButton.addEventListener('click', () => this.#open())
   }
-
-  /**
-   * Called after the element is inserted into the DOM.
-   */
-  connectedCallback() {}
 
   /**
    * Used to update the text in the editor from outside.
@@ -115,9 +107,9 @@ export class TeleprompterView extends HTMLElement {
       case 'start':
       case 'restart':
         this.#reset()
-        this.#countdown.hidden = false
+        this.#countdownMessage.hidden = false
         this.#countdownTimer = window.setTimeout(() => {
-          this.#countdown.hidden = true
+          this.#countdownMessage.hidden = true
           this.#send('countdownEnded')
         }, COUNTDOWN_SECONDS * 1000)
         break
@@ -160,7 +152,7 @@ export class TeleprompterView extends HTMLElement {
    */
   #reset(): void {
     window.clearTimeout(this.#countdownTimer)
-    this.#countdown.hidden = true
+    this.#countdownMessage.hidden = true
     this.#animation?.cancel()
   }
 
@@ -179,10 +171,10 @@ export class TeleprompterView extends HTMLElement {
   }
 
   /**
-   * Disables buttons based on the state.
+   * Enables only the buttons whose event the current state accepts.
    */
   #refreshButtons(): void {
-    for (const button of this.#menuButtons) {
+    for (const button of this.#controlButtons) {
       button.disabled = !this.#teleprompterState.canSend(button.dataset.event as TeleprompterEvent)
     }
   }

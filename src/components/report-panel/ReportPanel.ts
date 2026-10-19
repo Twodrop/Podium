@@ -2,7 +2,6 @@
  * The report-panel web component module.
  *
  * @author Robin Helander <rehswe@gmail.com>
- * @version 1.0.0
  */
 
 import css from './report-panel.css?inline'
@@ -15,7 +14,7 @@ sheet.replaceSync(css)
 const template = document.createElement('template')
 template.innerHTML = html
 
-const ROUNDED_TO = 2
+const DECIMAL_PLACES = 2
 
 /**
  * Represents a report panel.
@@ -57,8 +56,8 @@ export class ReportPanel extends HTMLElement {
     this.#wordCount.textContent = String(report.wordCount)
     this.#sentenceCount.textContent = String(report.sentenceCount)
     this.#speakingTime.textContent = report.formattedSpeakingTime
-    this.#averageWordLength.textContent = report.averageWordLength.toFixed(ROUNDED_TO)
-    this.#averageSentenceLength.textContent = report.averageSentenceLength.toFixed(ROUNDED_TO)
+    this.#averageWordLength.textContent = report.averageWordLength.toFixed(DECIMAL_PLACES)
+    this.#averageSentenceLength.textContent = report.averageSentenceLength.toFixed(DECIMAL_PLACES)
     this.#showMostFrequentWords(report.mostFrequentWords)
   }
 
@@ -67,7 +66,7 @@ export class ReportPanel extends HTMLElement {
    *
    * @param words - The words and their counts, most frequent first.
    */
-  #showMostFrequentWords(words: { word: string; count: number }[]) {
+  #showMostFrequentWords(words: readonly{ word: string; count: number }[]) {
     const items = words.map(({ word, count }) => {
       const item = document.createElement('li')
       const countElement = document.createElement('span')
@@ -78,11 +77,6 @@ export class ReportPanel extends HTMLElement {
     })
     this.#mostFrequentWords.replaceChildren(...items)
   }
-
-  /**
-   * Called after the element is inserted into the DOM.
-   */
-  connectedCallback() {}
 }
 
 customElements.define('report-panel', ReportPanel)

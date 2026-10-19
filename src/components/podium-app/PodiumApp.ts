@@ -2,7 +2,6 @@
  * The podium-app web component module.
  *
  * @author Robin Helander <rehswe@gmail.com>
- * @version 1.0.0
  */
 
 import css from './podium-app.css?inline'

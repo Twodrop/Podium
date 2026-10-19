@@ -20,7 +20,7 @@ export class SpeakingPace {
   }
 
   /**
-   * Gets a validate words per minute
+   * The pace in words per minute.
    *
    * @returns wordsPerMinute
    */

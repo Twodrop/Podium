@@ -1,6 +1,7 @@
 // The package does not provide TypeScript declarations.
 // @ts-ignore
 import { StateMachine } from 'flowstate-mini-js'
+
 export type TeleprompterEvent = 'start' | 'countdownEnded' | 'pause' | 'resume' | 'speechEnded' | 'restart' | 'exit'
 
 /**
@@ -17,6 +18,7 @@ export class TeleprompterState {
   readonly #machine = new StateMachine('idle')
 
   #wordCount = 0
+
   /**
    * ...
    */
@@ -47,6 +49,7 @@ export class TeleprompterState {
   set wordCount(wordCount: number) {
     this.#wordCount = wordCount
   }
+  
   /**
    * TODO:
    *

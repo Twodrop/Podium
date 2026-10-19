@@ -2,7 +2,6 @@
  * The main script file of the application. Registers the custom elements.
  *
  * @author Robin Helander <rehswe@gmail.com>
- * @version 1.0.0
  */
 
 import './components/report-panel/ReportPanel.ts'

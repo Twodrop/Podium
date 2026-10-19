@@ -2,7 +2,6 @@
  * The speech-editor web component module.
  *
  * @author Robin Helander <rehswe@gmail.com>
- * @version 1.0.0
  */
 
 import css from './speech-editor.css?inline'
@@ -91,11 +90,6 @@ export class SpeechEditor extends HTMLElement {
       })
     )
   }
-
-  /**
-   * Called after the element is inserted into the DOM.
-   */
-  connectedCallback() {}
 }
 
 customElements.define('speech-editor', SpeechEditor)
