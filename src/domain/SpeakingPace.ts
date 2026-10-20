@@ -1,6 +1,5 @@
 /**
  * Class used to validate the words per minute.
- *
  */
 export class SpeakingPace {
   readonly #slowestWordsPerMinute = 50

@@ -1,26 +1,26 @@
-// The package does not provide TypeScript declarations.
-// @ts-ignore
 import { StateMachine } from 'flowstate-mini-js'
 
 export type TeleprompterEvent = 'start' | 'countdownEnded' | 'pause' | 'resume' | 'speechEnded' | 'restart' | 'exit'
 
 /**
- * ...
+ * Keeps track of what the teleprompter is doing,
+ * and which events are allowed right now.
  */
 export class TeleprompterState {
   /**
-   * Checks whether there is a script to read.
+   * Checks whether there is a speech to read.
    *
-   * @returns True if the script has at least one word.
+   * @returns True if the speech has at least one word.
    */
-  readonly #hasScript = () => this.#wordCount > 0
+  readonly #hasSpeech = () => this.#wordCount > 0
 
   readonly #machine = new StateMachine('idle')
 
   #wordCount = 0
 
   /**
-   * ...
+   * Sets up the states and the transitions between them.
+   * Starts in idle.
    */
   constructor() {
     this.#machine
@@ -29,7 +29,7 @@ export class TeleprompterState {
       .defineState('playing')
       .defineState('paused')
       .defineState('finished')
-      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start', guard: this.#hasScript })
+      .defineTransition({ from: 'idle', to: 'countingDown', on: 'start', guard: this.#hasSpeech })
       .defineTransition({ from: 'countingDown', to: 'playing', on: 'countdownEnded' })
       .defineTransition({ from: 'playing', to: 'paused', on: 'pause' })
       .defineTransition({ from: 'paused', to: 'playing', on: 'resume' })
@@ -44,26 +44,26 @@ export class TeleprompterState {
   }
 
   /**
-   * TODO:
+   * The number of words in the speech. Start is only allowed when it is above 0.
    */
   set wordCount(wordCount: number) {
     this.#wordCount = wordCount
   }
 
   /**
-   * TODO:
+   * Checks whether the event is allowed in the current state.
    *
-   * @param event TODO:
-   * @returns TODO:
+   * @param event The event to check.
+   * @returns True if the event can be sent.
    */
   canSend(event: TeleprompterEvent) {
     return this.#machine.canSend(event)
   }
 
   /**
-   * TODO:
+   * Sends the event to move to the next state.
    *
-   * @param event TODO:
+   * @param event The event to send.
    */
   send(event: TeleprompterEvent) {
     this.#machine.send(event)

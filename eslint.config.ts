@@ -20,6 +20,14 @@ const eslintConfig: Linter.Config[] = [
       'jsdoc/require-returns-type': 'off',
     },
   },
+  {
+    name: 'podium/dts-overrides',
+    files: ['**/*.d.ts'],
+    rules: {
+      // Declaration files only describe types of code documented elsewhere.
+      'jsdoc/require-jsdoc': 'off',
+    },
+  },
   prettier,
 ]
 

@@ -1,12 +1,12 @@
 /**
- * ...
+ * Saves and loads the speech draft, so it is kept between visits.
  */
 export class DraftStore {
   readonly #storageKey = 'podium-draft'
   readonly #storage: Storage
 
   /**
-   * ...
+   * Creates a store that keeps the draft in the given storage.
    *
    * @param storage - For example localStorage.
    */
@@ -15,10 +15,10 @@ export class DraftStore {
   }
 
   /**
-   * ...
+   * Saves the draft, replacing the one saved before.
    *
-   * @param draft - ...
-   * @returns - ...
+   * @param draft - The speech text to save.
+   * @returns True if the draft was saved, false if the storage failed.
    */
   save(draft: string): boolean {
     try {
@@ -30,9 +30,9 @@ export class DraftStore {
   }
 
   /**
-   * ...
+   * Loads the saved draft.
    *
-   * @returns ...
+   * @returns The saved draft, or an empty string if there is none or the storage failed.
    */
   load(): string {
     try {
