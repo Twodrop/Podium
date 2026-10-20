@@ -16,9 +16,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Twodrop/Podium">
-    <img src="public/favicon.svg" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Podium</h3>
 
@@ -88,19 +85,33 @@ page.
 
 ### Requirements
 
-| ID  | Requirement                                                                                                                                    |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| R1  | The user can write or paste a speech into a text editor.                                                                                       |
-| R2  | The app shows the number of characters, words and sentences in the speech, updated as the user types.                                         |
-| R3  | The app shows the average word length and average sentence length of the speech.                                                              |
-| R4  | The app shows the ten most frequently used words in the speech (ignoring "a" and "i").                                                         |
-| R5  | The app shows an estimated speaking time (mm:ss) based on the chosen speaking pace.                                                            |
-| R6  | The user can choose a speaking pace with the presets Slow (100), Normal (130) and Fast (160) words per minute, or enter a custom value.       |
-| R7  | A custom pace must be a number from 50 to 300 words per minute. An invalid value shows an error message and the previous pace is kept.        |
-| R8  | The speech is saved automatically in the browser and restored when the page is reloaded.                                                      |
-| R9  | The user can open a teleprompter that, after a 3 second countdown, scrolls through the speech over the estimated speaking time.               |
-| R10 | The teleprompter can be paused, resumed, restarted and exited. Only the controls that are valid in the current state are enabled.            |
-| R11 | The teleprompter cannot be started when the speech is empty.                                                                                   |
+#### Functional
+
+| ID   | Requirement                                                                                                                                                                       | Priority | Module                 |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
+| FR1  | The user can paste or type a speech into an editor.                                                                                                                               | Must     | –                      |
+| FR2  | The user can choose a speaking pace: Slow 110, Normal 130 or Fast 160 words per minute, or a custom value from 50 to 300. Invalid values show an error and keep the previous pace. | Must     | Glyphalyze             |
+| FR3  | The app shows the total speaking time as mm:ss and updates it while the user types.                                                                                               | Must     | Glyphalyze             |
+| FR4  | Lines starting with `# ` split the speech into sections and are not counted as spoken words. Each section shows its word count and speaking time. A speech without headings is one section. | Should   | Glyphalyze             |
+| FR5  | Sentences longer than a word limit (default 25) are listed with their word count.                                                                                                 | Must     | Glyphalyze             |
+| FR6  | The user can set a target time and sees how far over or under the speech is.                                                                                                      | Must     | Glyphalyze             |
+| FR7  | A statistics panel shows words, sentences, characters, average word length and average sentence length.                                                                          | Should   | Glyphalyze             |
+| FR8  | The ten most repeated words are listed, with common words such as "the" and "and" left out.                                                                                      | Should   | Glyphalyze             |
+| FR9  | Teleprompter mode shows the speech in large text and scrolls it at the chosen pace.                                                                                               | Must     | Glyphalyze + flowstate |
+| FR10 | Teleprompter controls: Start (with a 3-second countdown), Pause, Resume, Restart and Exit. Only controls that are valid right now are enabled.                                    | Must     | flowstate              |
+| FR11 | Start is disabled while the speech is empty.                                                                                                                                      | Should   | Glyphalyze + flowstate |
+| FR12 | During a run, the teleprompter shows elapsed and remaining time.                                                                                                                  | Should   | Glyphalyze             |
+| FR13 | The speech is kept in the browser between visits.                                                                                                                                 | Should   | –                      |
+
+#### Non-functional
+
+| ID   | Requirement                                                                                                                              | Priority |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| NFR1 | The app is deployed at a public URL and matches the code on GitHub.                                                                      | Must     |
+| NFR2 | It works in current Chrome, Firefox and Safari, and on a phone-width screen without sideways scrolling.                                  | Should   |
+| NFR3 | With a 5,000-word speech, the report updates with no noticeable delay after a keystroke.                                                 | Should   |
+| NFR4 | No text is sent anywhere: the app has no server and makes no network requests after loading.                                            | Should   |
+| NFR5 | Code is object-oriented: logic in classes, private fields and methods where possible, no static methods except for start-up (assignment rule). | Must     |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -190,13 +201,18 @@ if you want something to try it out with.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Speech editor with live analysis
-- [x] Speaking pace presets and custom pace with validation
-- [x] Estimated speaking time
-- [x] Automatic draft saving
-- [x] Teleprompter with countdown, pause, resume, restart and exit
-- [ ] Split the speech into sections and show the speaking time for each section
-- [ ] Adjustable teleprompter text size
+- [x] Speech editor (FR1)
+- [x] Speaking pace presets and custom pace with validation (FR2)
+- [x] Total speaking time (FR3)
+- [x] Statistics panel (FR7)
+- [x] Most repeated words (FR8)
+- [x] Teleprompter with countdown, pause, resume, restart and exit (FR9, FR10, FR11)
+- [x] Keep the speech between visits (FR13)
+- [ ] Sections from `# ` headings, with word count and speaking time per section (FR4)
+- [ ] List of long sentences (FR5)
+- [ ] Target time with over/under indicator (FR6)
+- [ ] Elapsed and remaining time in the teleprompter (FR12)
+- [ ] Save pace and target between visits, not just the speech (FR13)
 
 See the [open issues](https://github.com/Twodrop/Podium/issues) for a full list of proposed features (and known issues).
 
